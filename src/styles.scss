@@ -1,1 +1,112 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+     font-family: "Quicksand", sans-serif;
+     font-size: 14px;
+      font-style: normal;
+      background-color:#DDE6ED;
+}
+
+.comment-wrapper {
+    margin:0 auto;
+    max-width: 700px;
+}
+
+.comment {
+    display: flex;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 12px;
+    background-color: #fff;
+
+    .comment-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2;
+        padding: 0 25px 0 10px;
+        color:#454545;
+    }
+
+    .comment-text {
+        padding-left: 5px;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .avatar {
+            img {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        > .username {
+            padding: 0 25px;
+        }
+
+        > .date {
+            font-size: 12px;
+            color: #888;
+            flex-grow: 2;
+        }
+
+        .action {
+            a {
+                color:#002cf2;
+                text-decoration: none;
+            }
+        }
+    }
+    
+    >  .score-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+
+        > .score-up,
+        > .score-down,
+        > .score-num{
+            color:#093FB4;
+            padding: 5px;
+            height: 25px;
+            width: 25px;
+            text-align: center;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    }
+}
+ul{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+    li {
+        margin: 18px 0 5px 0;
+        > ul {
+            margin: 15px 0px 0 15px;
+            border-left: 1px solid #9DB2BF;
+            padding-left: 15px;
+            padding-bottom: 2px;
+            li {
+                 margin: 7px 0;  
+             }
+        }
+    }
+}
+
+button {
+    border: 1px solid transparent;
+    white-space: nowrap;
+    border-radius: 0.25rem;
+    background-color: #093FB4;
+    color: #fff;
+    padding: .25rem .5rem;
+    line-height: 1.5;
+    display: inline-block;
+    cursor: pointer;
+}

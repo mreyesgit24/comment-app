@@ -1,0 +1,26 @@
+<div class="comment">
+    <div class="score-container">
+        <div class="score-up">
+            <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+        </div>
+        <div class="score-num">{{comment.score}}</div>
+        <div class="score-down">
+            <fa-icon [icon]="faMinus"></fa-icon>
+        </div>
+    </div>
+   <div class="comment-details">
+     <div class="header">
+        <div class="avatar">
+            <img [src]="`./assets/${comment.user.image.png}`" alt="User Avatar">
+        </div>
+        <div class="username">{{comment.author}}</div>
+        <div class="date">{{comment.createdAt}}</div>
+        <div class="action"><a href="http://example.com" target="_blank" rel="noopener noreferrer">
+            <fa-icon [icon]="faReply" size="sm"></fa-icon>
+            Reply</a></div>
+    </div>
+    <div class="comment-text">
+        <p> {{comment.content}}</p>
+    </div>
+   </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="comment-wrapper">
+    <ul>
+        <li *ngFor="let comment of comments">
+            <app-comment [comment]="comment"></app-comment>
+            <ul *ngIf="comment.replies && comment.replies.length > 0">
+                <li *ngFor="let reply of comment.replies">
+                    <app-comment [comment]="reply"></app-comment>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <app-comment-box [user]="currentUser"></app-comment-box>
+</div>
