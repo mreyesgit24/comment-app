@@ -55,7 +55,6 @@ body{
 
         .action {
             a {
-                color:#002cf2;
                 text-decoration: none;
             }
         }
@@ -110,3 +109,31 @@ button {
     display: inline-block;
     cursor: pointer;
 }
+
+    fieldset{
+        flex-grow: 1;
+        border: 2px solid #093FB4;
+        border-radius: 5px;
+        margin: -8px 15px 0 15px;
+        legend {
+            font-size: 12px;
+            color:#002cf2;
+        }
+    }
+    textarea {
+        border-radius: 5px;
+        border: none;
+        resize: none;
+        width: 100%;
+        min-height: 100px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .text-red {
+        color: red;
+    }
+
+    .text-blue {
+        color: #002cf2;
+    }

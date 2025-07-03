@@ -13,14 +13,27 @@
         <div class="avatar">
             <img [src]="`./assets/${comment.user.image.png}`" alt="User Avatar">
         </div>
-        <div class="username">{{comment.author}}</div>
+        <div class="username">{{comment.user.username}}</div>
         <div class="date">{{comment.createdAt}}</div>
-        <div class="action"><a href="http://example.com" target="_blank" rel="noopener noreferrer">
+        <div class="action">
+            <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
             <fa-icon [icon]="faReply" size="sm"></fa-icon>
-            Reply</a></div>
+            Reply {{comment.username}}</a>
+            <a href="javascript:void(0);" class="text-red"  (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
+            <fa-icon [icon]="faTrash" size="sm"></fa-icon>
+            Delete</a>
+            <a href="javascript:void(0);" (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
+            <fa-icon [icon]="faEdit" size="sm"></fa-icon>
+            Edit</a>
+        </div>
     </div>
     <div class="comment-text">
         <p> {{comment.content}}</p>
+        <fieldset *ngIf="isEditing">
+             <legend>Edit comment</legend>
+             <textarea [(ngModel)]="editText"></textarea>
+        </fieldset>
+        <button type="button" *ngIf="isEditing" (click)="update(comment)">UPDATE</button>
     </div>
    </div>
 </div>

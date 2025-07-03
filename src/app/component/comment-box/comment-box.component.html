@@ -1,8 +1,11 @@
-<div class="comment comment-box">
+<div class="comment comment-box" *ngIf="user">
    <img [src]="`./assets/${user.image.png}`" alt="">
     <fieldset>
         <legend>Add a comment</legend>
-             <textarea placeholder="Add a comment..." ></textarea>
+             <textarea placeholder="Add a comment..." [(ngModel)]="commentText" ></textarea>
     </fieldset>
-  <button>SEND</button>
+  <button (click)="sendComment()" [disabled]="!commentText">
+     <span *ngIf="!owner">SEND</span>
+     <span *ngIf="owner">REPLY</span>
+  </button>
 </div>
