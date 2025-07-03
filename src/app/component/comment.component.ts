@@ -7,9 +7,10 @@ import { Store } from '@ngrx/store';
 import { selectComment, updateComment } from '../../store/comment.actions';
 import { selectCurrentUserName } from '../../store/comment.selector';
 import { FormsModule } from '@angular/forms';
+import { MomentFromNowPipe } from '../../service/pipe/moment-from-now.pipe';
 
 @Component({
-    imports: [NgIf, FontAwesomeModule, FormsModule],
+    imports: [NgIf, FontAwesomeModule, FormsModule, MomentFromNowPipe],
     selector: 'app-comment',
     styleUrls: ['./comment.component.scss'],
     templateUrl: './comment.component.html'
@@ -46,6 +47,11 @@ export class CommentComponent implements OnInit {
 
     update(comment: Comment) {
         this.isEditing = false;
-         this.store.dispatch(updateComment({ id: comment.id, updatedText: this.editText }));
+      
+        const updatedComment = {
+            ...comment
+        }
+          updatedComment.content = this.editText;
+         this.store.dispatch(updateComment({ parentId: 0, childId: comment.id, comment: updatedComment }));
     }
 }

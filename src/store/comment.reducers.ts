@@ -24,21 +24,25 @@ export const selectedReplyState: any = null;
 export const commentReducer = createReducer(
     initialState,
     on(addComment, (state, { comment }) => [...state, comment]),
-    on(updateComment, (state, { id,  updatedText }) => {
-        state = state.map(c => {
+    on(updateComment, (state, { parentId, childId,  comment }) => {
+      
+
+         state = state.map(c => {
             return {
-                ...c,
-                replies: c.replies?.map(r => {
-                    if (r.id === id) {
-                        return {
-                            ...r,
-                            content: updatedText
-                        };
-                    }
-                    return r;
-                })
-            }
-        })
+                    ...c,
+                    replies: c.replies?.map(r => {
+                        if(r.id == comment.id) {
+                            return {
+                                ...r,
+                                ...comment
+                            }
+                        }
+                        return r;
+                    })
+             };
+
+
+        });
 
         return [...state];
     }),
@@ -70,18 +74,17 @@ export const currentUserReducer = createReducer(
     on(selectCurrentUser, (state, {user}) => user)
 );  
 
-function _updateComment(id: number, updatedText: string, state: Comment[]): Comment[] {
-    state = state.map(c => {
-            if (c.id === id) {
-                return {
-                    ...c,
-                    content: updatedText
-                };
+function _updateComment(id: number, updatedText: string, state: any[]): Comment[] {
+  state =  state.map(c => {
+        if(c.id == id) {
+            return {
+                ...c,
+                content: updatedText
             }
-           state = _updateComment(id, updatedText, c.replies || []);
-            return c;
-        });
+        } else {
+            _updateComment(id, updatedText, c.replies);
+        }
+    })
 
-   return [...state];
-
+    return state;
 }

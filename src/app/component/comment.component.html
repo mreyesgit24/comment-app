@@ -14,7 +14,7 @@
             <img [src]="`./assets/${comment.user.image.png}`" alt="User Avatar">
         </div>
         <div class="username">{{comment.user.username}}</div>
-        <div class="date">{{comment.createdAt}}</div>
+        <div class="date">{{comment.createdAt | momentFromNow }}</div>
         <div class="action">
             <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
             <fa-icon [icon]="faReply" size="sm"></fa-icon>

@@ -7,7 +7,7 @@ export const addComment = createAction(
 );
 
 export const updateComment = createAction(
-    '[Comment] Update Comment', props<{ id: number, updatedText: string }>()
+    '[Comment] Update Comment', props<{ parentId: number, childId: number, comment: Comment }>()
 );
 
 export const replyComment = createAction(
