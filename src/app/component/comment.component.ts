@@ -4,10 +4,12 @@ import { faPlus, faMinus, faReply, faEdit, faTrash } from '@fortawesome/free-sol
 import { Comment } from '../../model/comment.model';
 import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectComment, updateComment } from '../../store/comment.actions';
+import { deleteComment, selectComment, updateComment } from '../../store/comment.actions';
 import { selectCurrentUserName } from '../../store/comment.selector';
 import { FormsModule } from '@angular/forms';
 import { MomentFromNowPipe } from '../../service/pipe/moment-from-now.pipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationModalComponent } from '../../shared/modal/confirmation.modal.component';
 
 @Component({
     imports: [NgIf, FontAwesomeModule, FormsModule, MomentFromNowPipe],
@@ -27,7 +29,7 @@ export class CommentComponent implements OnInit {
 
    @Input() comment: Comment;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private ngModal: NgbModal) {
         this.store.select(selectCurrentUserName).subscribe(username => {
             this.currentUserName = username;
         });
@@ -42,7 +44,7 @@ export class CommentComponent implements OnInit {
 
     edit(comment: Comment) {
         this.isEditing = true;
-        this.editText = comment.content;
+        this.editText = `@${comment.replyingTo} ${comment.content}`;
     }
 
     update(comment: Comment) {
@@ -51,7 +53,35 @@ export class CommentComponent implements OnInit {
         const updatedComment = {
             ...comment
         }
-          updatedComment.content = this.editText;
+          updatedComment.content = this.editText.replace(/@\w+/, ``);
          this.store.dispatch(updateComment({ parentId: 0, childId: comment.id, comment: updatedComment }));
+    }
+
+    scoreUp(comment: Comment): void {
+      
+        const updatedComment = {
+            ...comment
+        }
+          updatedComment.score += 1;
+         this.store.dispatch(updateComment({ parentId: 0, childId: comment.id, comment: updatedComment }));
+    }
+
+    scoreDown(comment: Comment): void {
+      
+        const updatedComment = {
+            ...comment
+        }
+          updatedComment.score -= 1;
+         this.store.dispatch(updateComment({ parentId: 0, childId: comment.id, comment: updatedComment }));
+    }
+
+    delete(id: number) {
+        this.isEditing = true;
+       
+       this.ngModal.open(ConfirmationModalComponent).result.then((r) => {
+         if(r) {
+            this.store.dispatch(deleteComment({ id }));
+         }
+       })
     }
 }

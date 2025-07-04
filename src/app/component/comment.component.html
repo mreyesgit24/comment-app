@@ -1,10 +1,10 @@
 <div class="comment">
     <div class="score-container">
-        <div class="score-up">
+        <div class="score-up" (click)="scoreUp(comment)">
             <fa-icon [icon]="faPlus" size="sm"></fa-icon>
         </div>
         <div class="score-num">{{comment.score}}</div>
-        <div class="score-down">
+        <div class="score-down" class="score-up" (click)="scoreDown(comment)">
             <fa-icon [icon]="faMinus"></fa-icon>
         </div>
     </div>
@@ -13,13 +13,13 @@
         <div class="avatar">
             <img [src]="`./assets/${comment.user.image.png}`" alt="User Avatar">
         </div>
-        <div class="username">{{comment.user.username}}</div>
+        <div class="username">{{comment.user.username}} <span *ngIf="currentUserName === comment.user.username" class="badge text-bg-primary">YOU</span></div>
         <div class="date">{{comment.createdAt | momentFromNow }}</div>
         <div class="action">
             <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
             <fa-icon [icon]="faReply" size="sm"></fa-icon>
             Reply {{comment.username}}</a>
-            <a href="javascript:void(0);" class="text-red"  (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
+            <a href="javascript:void(0);" class="text-red"  (click)="delete(comment.id)" *ngIf="currentUserName == comment.user.username">
             <fa-icon [icon]="faTrash" size="sm"></fa-icon>
             Delete</a>
             <a href="javascript:void(0);" (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
@@ -28,12 +28,14 @@
         </div>
     </div>
     <div class="comment-text">
-        <p> {{comment.content}}</p>
-        <fieldset *ngIf="isEditing">
+        <p *ngIf="!isEditing"> <a *ngIf="comment.replyingTo" href="javascript:void(0)">&#64;{{comment.replyingTo}}</a>  {{comment.content}}</p>
+        <fieldset *ngIf="isEditing" class="mb-10">
              <legend>Edit comment</legend>
-             <textarea [(ngModel)]="editText"></textarea>
+             <textarea [(ngModel)]="editText" class="form-control"></textarea>
         </fieldset>
-        <button type="button" *ngIf="isEditing" (click)="update(comment)">UPDATE</button>
+       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+         <button class="btn btn-primary update-btn" type="button" *ngIf="isEditing" (click)="update(comment)">UPDATE</button>
+       </div>
     </div>
    </div>
 </div>

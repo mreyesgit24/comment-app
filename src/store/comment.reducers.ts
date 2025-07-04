@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addComment, selectComment, retrieveComments, replyComment, selectCurrentUser, updateComment } from "./comment.actions";
+import { addComment, selectComment, retrieveComments, replyComment, selectCurrentUser, updateComment, deleteComment, clearComment } from "./comment.actions";
 import { Comment } from "../model/comment.model";
 
 export interface CurrentUserState {
@@ -42,9 +42,26 @@ export const commentReducer = createReducer(
              };
 
 
+        }).map(c => {
+            if(c.id == comment.id) {
+                return {
+                    ...c,
+                    ...comment
+                }
+            }
+
+            return c;
         });
 
         return [...state];
+    }),
+    on(deleteComment, (state, { id }) => {
+       return state.map(c => {
+            return {
+                ...c,
+                replies: [...(c.replies || []).filter(r => r.id !== id)]
+            }
+       }).filter(c => c.id !== id)
     }),
     on(retrieveComments, (state, { comments }) => comments),
     on(replyComment, (state, {parentId, comment}) => {
@@ -66,25 +83,11 @@ export const commentReducer = createReducer(
 
 export const replyReducer = createReducer(
     selectedReplyState,
-    on(selectComment, (state, {comment}) => comment)
+    on(selectComment, (state, {comment}) => comment),
+    on(clearComment, (state, _) => selectedReplyState)
 );  
 
 export const currentUserReducer = createReducer(
     initialCurrentUserState,
     on(selectCurrentUser, (state, {user}) => user)
 );  
-
-function _updateComment(id: number, updatedText: string, state: any[]): Comment[] {
-  state =  state.map(c => {
-        if(c.id == id) {
-            return {
-                ...c,
-                content: updatedText
-            }
-        } else {
-            _updateComment(id, updatedText, c.replies);
-        }
-    })
-
-    return state;
-}

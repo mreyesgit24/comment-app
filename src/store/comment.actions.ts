@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, emptyProps, props } from '@ngrx/store';
 import { User } from '../model/user.model';
 import { Comment } from '../model/comment.model';
 
@@ -8,6 +8,10 @@ export const addComment = createAction(
 
 export const updateComment = createAction(
     '[Comment] Update Comment', props<{ parentId: number, childId: number, comment: Comment }>()
+);
+
+export const deleteComment = createAction(
+    '[Comment] Delete Comment', props<{id: number }>()
 );
 
 export const replyComment = createAction(
@@ -20,6 +24,10 @@ export const retrieveComments = createAction(
     
 export const selectComment = createAction(
     '[Comment] Select Comment', props<{ comment : Comment }>()
+);
+
+export const clearComment = createAction(
+    '[Comment] Clear Comment'
 );
     
 export const selectCurrentUser = createAction(

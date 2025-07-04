@@ -8,4 +8,5 @@ export interface Comment {
     score: number;
     user: User;
     replies?: Comment[];
+    replyingTo?: string
 }
