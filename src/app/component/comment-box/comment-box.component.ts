@@ -16,6 +16,7 @@ export class CommentBoxComponent implements OnInit {
   commentText: string = '';
   @Input() user: User;
   @Input() owner: Comment;
+  @Input() parentId: number;
   constructor(private store: Store){
 
   }
@@ -41,7 +42,7 @@ export class CommentBoxComponent implements OnInit {
        newComment.id = Math.random();
        newComment.replyingTo = this.owner.user.username;
        newComment.content = newComment.content.replace(/@\w+/, ``);
-       this.store.dispatch(replyComment({ parentId: this.owner.id, comment: newComment }));
+       this.store.dispatch(replyComment({ parentId: this.parentId ?? this.owner.id, comment: newComment }));
        this.store.dispatch(clearComment());
     }
 

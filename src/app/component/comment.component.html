@@ -1,11 +1,26 @@
 <div class="comment">
     <div class="score-container">
-        <div class="score-up" (click)="scoreUp(comment)">
+        <div>
+            <div class="score-up" (click)="scoreUp(comment)">
             <fa-icon [icon]="faPlus" size="sm"></fa-icon>
         </div>
         <div class="score-num">{{comment.score}}</div>
         <div class="score-down" class="score-up" (click)="scoreDown(comment)">
             <fa-icon [icon]="faMinus"></fa-icon>
+        </div>
+        </div>
+        <div>
+             <div class="action mob-action">
+                <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
+                <fa-icon [icon]="faReply" size="sm"></fa-icon>
+                Reply {{comment.username}}</a>
+                <a href="javascript:void(0);" class="text-red"  (click)="delete(comment.id)" *ngIf="currentUserName == comment.user.username">
+                <fa-icon [icon]="faTrash" size="sm"></fa-icon>
+                Delete</a>
+                <a href="javascript:void(0);" (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
+                <fa-icon [icon]="faEdit" size="sm"></fa-icon>
+                Edit</a>
+            </div>
         </div>
     </div>
    <div class="comment-details">

@@ -18,3 +18,23 @@
     textarea {
         font-size: 14px;
     }
+
+    @media (max-width: 600px) {
+        .comment-box {
+            flex-direction: column-reverse;
+            position: relative;
+            
+            fieldset {
+                margin: 0 0 12px 0;
+                width: 100%;
+            }
+            button {
+                position: absolute;
+                right: 12px;
+            }
+            textarea {
+                font-size: 12px;
+            }
+        }
+
+    }

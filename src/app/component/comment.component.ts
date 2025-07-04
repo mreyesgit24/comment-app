@@ -76,8 +76,7 @@ export class CommentComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.isEditing = true;
-       
+
        this.ngModal.open(ConfirmationModalComponent).result.then((r) => {
          if(r) {
             this.store.dispatch(deleteComment({ id }));

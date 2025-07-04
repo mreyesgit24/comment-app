@@ -18,3 +18,49 @@ fieldset{
         text-decoration: none;
     }
 }
+
+.score-container {
+    color:#0d6efd;
+    > div:last-of-type { 
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .comment {
+        flex-flow: column-reverse;
+        padding: 8px 12px 8px 8px;
+        .header {
+            > .username {
+                padding: 0 15px;
+            }
+        }
+    }
+    .score-container {
+        flex-direction: row;
+        justify-content: flex-start;
+        height: auto;
+        display: flex;
+        font-size: 12px;
+
+        > div:first-of-type {
+            display: flex;
+            flex-grow: 2;
+            flex-direction: row;
+            gap:12px;
+        }
+        >div:last-of-type{
+            display: flex;
+        }
+    }
+    .header {
+        .action {
+            display: none;
+        }
+    }
+
+    .comment-details {
+        font-size: 12px;
+        padding:0;
+    }
+}
