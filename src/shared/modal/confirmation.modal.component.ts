@@ -14,12 +14,4 @@ export class ConfirmationModalComponent {
     constructor(public modal: NgbActiveModal){
         
     }
-
-    onConfirm() {
-        this.confirm.emit();
-    }
-
-    onCancel() {
-        this.cancel.emit();
-    }
 }

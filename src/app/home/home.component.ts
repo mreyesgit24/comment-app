@@ -6,8 +6,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { Comment } from '../../model/comment.model';
 import { User } from '../../model/user.model';
 import { Store } from '@ngrx/store';
-import { retrieveComments, selectCurrentUser } from '../../store/comment.actions';
-import { loadComments, toReplyComment } from '../../store/comment.selector';
+import { retrieveComments, retrieveCurrentUser } from '../../store/comment.actions';
+import { loadComments } from '../../store/comment.selector';
 
 @Component({
   selector: 'app-home',
@@ -23,19 +23,13 @@ export class HomeComponent {
     });
   }
   comments: Comment[] = [];
-  currentReply: Comment;
   currentUser: User;
   ngOnInit() {
     this.commentService.getComments().subscribe(data => {
-     // this.comments = data.comments || [];
          this.store.dispatch(retrieveComments({ comments: data.comments}));
-         this.store.dispatch(selectCurrentUser({ user: data.currentUser}));
-      this.currentUser = data.currentUser;
+         this.store.dispatch(retrieveCurrentUser({ user: data.currentUser}));
     });
 
-    this.store.select(toReplyComment).subscribe(comment => {
-      this.currentReply = comment
-    });
 
   }
 }

@@ -1,28 +1,13 @@
 <div class="comment">
     <div class="score-container">
-        <div>
-            <div class="score-up" (click)="scoreUp(comment)">
+           <div class="score-up" (click)="scoreUp(comment)">
             <fa-icon [icon]="faPlus" size="sm"></fa-icon>
-        </div>
-        <div class="score-num">{{comment.score}}</div>
-        <div class="score-down" class="score-up" (click)="scoreDown(comment)">
-            <fa-icon [icon]="faMinus"></fa-icon>
-        </div>
-        </div>
-        <div>
-             <div class="action mob-action">
-                <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
-                <fa-icon [icon]="faReply" size="sm"></fa-icon>
-                Reply {{comment.username}}</a>
-                <a href="javascript:void(0);" class="text-red"  (click)="delete(comment.id)" *ngIf="currentUserName == comment.user.username">
-                <fa-icon [icon]="faTrash" size="sm"></fa-icon>
-                Delete</a>
-                <a href="javascript:void(0);" (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
-                <fa-icon [icon]="faEdit" size="sm"></fa-icon>
-                Edit</a>
+            </div>
+            <div class="score-num">{{comment.score}}</div>
+            <div class="score-down" class="score-up" (click)="scoreDown(comment)">
+                <fa-icon [icon]="faMinus"></fa-icon>
             </div>
         </div>
-    </div>
    <div class="comment-details">
      <div class="header">
         <div class="avatar">
@@ -33,8 +18,8 @@
         <div class="action">
             <a href="javascript:void(0);" (click)="reply(comment)" *ngIf="currentUserName !== comment.user.username">
             <fa-icon [icon]="faReply" size="sm"></fa-icon>
-            Reply {{comment.username}}</a>
-            <a href="javascript:void(0);" class="text-red"  (click)="delete(comment.id)" *ngIf="currentUserName == comment.user.username">
+            Reply</a>
+            <a href="javascript:void(0);" class="text-danger"  (click)="delete(comment.id)" *ngIf="currentUserName == comment.user.username">
             <fa-icon [icon]="faTrash" size="sm"></fa-icon>
             Delete</a>
             <a href="javascript:void(0);" (click)="edit(comment)" *ngIf="currentUserName == comment.user.username">
@@ -49,8 +34,10 @@
              <textarea [(ngModel)]="editText" class="form-control"></textarea>
         </fieldset>
        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-         <button class="btn btn-primary update-btn" type="button" *ngIf="isEditing" (click)="update(comment)">UPDATE</button>
+         <button class="btn btn-primary btn-sm update-btn" type="button" *ngIf="isEditing" (click)="update(comment)">UPDATE</button>
        </div>
     </div>
    </div>
 </div>
+
+<app-comment-box *ngIf="comment.id === onReplyId" [parentId]="parentId" [owner]="comment" (onReply)="onReply()"></app-comment-box>

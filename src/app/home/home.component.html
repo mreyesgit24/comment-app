@@ -2,18 +2,12 @@
     <ul>
         <li *ngFor="let comment of comments">
             <app-comment [comment]="comment"></app-comment>
-            <ng-container *ngIf="currentReply && comment.id === currentReply.id">
-                 <app-comment-box [user]="currentUser" [owner]="comment" style="margin-top: 10px; display: block;"></app-comment-box>
-            </ng-container>
             <ul *ngIf="comment.replies && comment.replies.length > 0">
                 <li *ngFor="let reply of comment.replies">
-                    <app-comment [comment]="reply"></app-comment>
-                          <ng-container *ngIf="currentReply && reply.id === currentReply.id">
-                            <app-comment-box [user]="currentUser" [owner]="reply" [parentId]="comment.id" style="margin-top: 10px; display: block;"></app-comment-box>
-                        </ng-container>
+                    <app-comment [parentId]="comment.id" [comment]="reply"></app-comment>
                 </li>
             </ul>
         </li>
     </ul>
-    <app-comment-box [user]="currentUser"></app-comment-box>
+    <app-comment-box></app-comment-box>
 </div>

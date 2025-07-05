@@ -1,4 +1,6 @@
 export interface User {
     username: string;
-    image: any;
+    image: {
+        png: string
+    };
 }

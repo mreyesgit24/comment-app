@@ -7,7 +7,7 @@ export const addComment = createAction(
 );
 
 export const updateComment = createAction(
-    '[Comment] Update Comment', props<{ parentId: number, childId: number, comment: Comment }>()
+    '[Comment] Update Comment', props<{ comment: Comment }>()
 );
 
 export const deleteComment = createAction(
@@ -22,14 +22,7 @@ export const retrieveComments = createAction(
     '[Comment] Retrieve Comments', props<{ comments: Comment[]}>()
 );
     
-export const selectComment = createAction(
-    '[Comment] Select Comment', props<{ comment : Comment }>()
-);
-
-export const clearComment = createAction(
-    '[Comment] Clear Comment'
-);
     
-export const selectCurrentUser = createAction(
+export const retrieveCurrentUser = createAction(
     '[Comment] Select Current User', props<{ user : User }>()
 );
